@@ -5,10 +5,9 @@ import "fmt"
 type EmailProtocol string
 
 type Email struct {
-	Sender               string
-	RecipientEmail       string
-	RecipientDisplayName string
-	Message              string
+	Sender    string
+	Recipient string
+	Message   string
 }
 
 const (
@@ -75,7 +74,7 @@ func main() {
 	emailRepo := EmailRepository{sentEmails: []Email{}}
 	emailService := EmailService{Repository: &emailRepo}
 
-	email := Email{Sender: "test@test.com", RecipientEmail: "test1@test1.com", RecipientDisplayName: "Test1", Message: "Test email content"}
+	email := Email{Sender: "test@test.com", Recipient: "test1@test1.com", Message: "Test email content"}
 	if emailService.Send(email, POP3) {
 		fmt.Println(fmt.Sprintf("Email was sent. %s was used.", POP3))
 	}
