@@ -66,7 +66,9 @@ func (emailService EmailService) Send(email Email, protocol EmailProtocol) bool 
 		result = emailService.SendWithSMTP(email)
 		break
 	}
-	emailService.Repository.Save(email)
+	if result {
+		emailService.Repository.Save(email)
+	}
 	return result
 }
 
@@ -77,6 +79,7 @@ func main() {
 	email := Email{Sender: "test@test.com", Recipient: "test1@test1.com", Message: "Test email content"}
 	if emailService.Send(email, POP3) {
 		fmt.Println(fmt.Sprintf("Email was sent. %s was used.", POP3))
+	} else {
+		fmt.Println("Unable to send email.")
 	}
-	fmt.Println(emailService.Repository.GetSentEmails())
 }
