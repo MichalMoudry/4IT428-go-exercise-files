@@ -55,16 +55,12 @@ func (emailService EmailService) Send(email Email, protocol EmailProtocol) bool 
 	switch protocol {
 	case SMTP:
 		result = emailService.SendWithSMTP(email)
-		break
 	case IMAP:
 		result = emailService.SendWithIMAP(email)
-		break
 	case POP3:
 		result = emailService.SendWithPOP3(email)
-		break
 	default:
 		result = emailService.SendWithSMTP(email)
-		break
 	}
 	if result {
 		emailService.Repository.Save(email)
