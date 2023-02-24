@@ -1,4 +1,4 @@
-package main
+package email_service
 
 import "fmt"
 
@@ -68,7 +68,7 @@ func (emailService EmailService) Send(email Email, protocol EmailProtocol) bool 
 	return result
 }
 
-func main() {
+func Run() {
 	emailRepo := EmailRepository{sentEmails: []Email{}}
 	emailService := EmailService{Repository: &emailRepo}
 

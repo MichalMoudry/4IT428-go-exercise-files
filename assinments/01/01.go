@@ -1,4 +1,4 @@
-package main
+package first_assinment
 
 import (
 	"fmt"
@@ -14,7 +14,7 @@ const Test = 50
 
 var c, python, java bool
 
-func main() {
+func Run_01() {
 	var a, b, d = true, false, "Test"
 	fmt.Println("Test", rand.Intn(5), math.Pi)
 	println(add(5, 15))

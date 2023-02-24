@@ -1,4 +1,4 @@
-package main
+package first_assinment
 
 import (
 	"fmt"
@@ -15,7 +15,7 @@ func Sqrt(x float64) float64 {
 	return z
 }
 
-func main() {
+func Run() {
 	fmt.Println(Sqrt(2))
 	fmt.Println(math.Sqrt(2))
 }
