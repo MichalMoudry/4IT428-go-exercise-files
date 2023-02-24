@@ -1,4 +1,4 @@
-package assinment_03
+package assignment_03
 
 import (
 	"reflect"
