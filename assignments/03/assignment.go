@@ -45,6 +45,9 @@ func Palindrome(input []string) bool {
 }
 
 func Anagram(firstString string, secondString string) bool {
+	if len(firstString) != len(secondString) {
+		return false
+	}
 	return false
 }
 
