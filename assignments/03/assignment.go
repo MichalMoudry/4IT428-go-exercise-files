@@ -1,30 +1,9 @@
 package assignment_03
 
 import (
+	"errors"
 	"strings"
 )
-
-type Student struct {
-	id   int
-	name string
-}
-
-type Course struct {
-	id       int
-	name     string
-	students []Student
-}
-
-func (course *Course) Name() string {
-	return course.name
-}
-
-func (course *Course) EnrollStudent(s Student) error {
-	course.students = append(course.students, s)
-	return nil
-}
-
-type DataSource interface{}
 
 // Method for reversing array of strings.
 func Reverse(input []string) []string {
@@ -48,7 +27,20 @@ func Anagram(firstString string, secondString string) bool {
 	if len(firstString) != len(secondString) {
 		return false
 	}
-	return false
+
+	firstStringFrequencies := make(map[rune]int)
+	secondStringFrequencies := make(map[rune]int)
+
+	for index, char := range firstString {
+		firstStringFrequencies[char] += 1
+		secondStringFrequencies[rune(secondString[index])] += 1
+	}
+	for index := range firstStringFrequencies {
+		if firstStringFrequencies[index] != secondStringFrequencies[index] {
+			return false
+		}
+	}
+	return true
 }
 
 func RemoveDigits(input string) string {
@@ -73,6 +65,55 @@ func ReplaceDigits(input string, replacement string) string {
 	return builder.String()
 }
 
+type Student struct {
+	id   int
+	name string
+}
+
+func (student *Student) Name() string {
+	return student.name
+}
+
+type Course struct {
+	id   int
+	name string
+}
+
+func (course *Course) Name() string {
+	return course.name
+}
+
+type DataSource interface {
+	ReadStudent(int) (Student, error)
+	ReadCourse(int) (Course, error)
+}
+
+type Repository struct {
+	students []Student
+	courses  []Course
+}
+
+func (dataSource *Repository) ReadStudent(studentId int) (Student, error) {
+	for _, student := range dataSource.students {
+		if student.id == studentId {
+			return student, nil
+		}
+	}
+	return Student{}, errors.New("unable to find student by id")
+}
+
+func (dataSource *Repository) ReadCourse(courseId int) (Course, error) {
+	for _, course := range dataSource.courses {
+		if course.id == courseId {
+			return course, nil
+		}
+	}
+	return Course{}, errors.New("unable to find course by id")
+}
+
 func EnrollStudentToCourse(dataSource DataSource, studentId int, courseId int) error {
+	dataSource.ReadStudent(studentId)
+	dataSource.ReadCourse(courseId)
+	//student, err := dataSource.ReadStudent()
 	return nil
 }
